@@ -7,8 +7,8 @@
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:1": {}
     },
-    "postCreateCommand": "chmod +x /workspaces/${GITHUB_REPOSITORY##*/}/startup.sh && /workspaces/${GITHUB_REPOSITORY##*/}/startup.sh",
-    "postStartCommand": "/workspaces/${GITHUB_REPOSITORY##*/}/startup.sh",
+    "postCreateCommand": "chmod +x /workspaces/${localWorkspaceFolderBasename}/startup.sh",
+    "postStartCommand": "/workspaces/${localWorkspaceFolderBasename}/startup.sh",
     "settings": {
         "terminal.integrated.shell.linux": "/bin/bash"
     },
@@ -26,10 +26,13 @@
                 {
                     "label": "Export Database",
                     "type": "shell",
-                    "command": "mysqldump -u mariadb -p mariadb mariadb > /workspaces/${GITHUB_REPOSITORY##*/}/database_export.sql",
+                    "command": "mysqldump -u mariadb -p mariadb mariadb > /workspaces/${localWorkspaceFolderBasename}/database_export.sql",
                     "problemMatcher": []
                 }
             ]
         }
+    },
+    "remoteEnv": {
+        "REPO_NAME": "${localWorkspaceFolderBasename}"
     }
 }

@@ -26,21 +26,14 @@ RUN wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zi
     && mv /usr/share/phpMyAdmin-*-all-languages /usr/share/phpmyadmin \
     && rm /tmp/phpmyadmin.zip
 
-# Create /htdocs directory and set permissions
-RUN mkdir -p /htdocs && chown -R www-data:www-data /htdocs
-
-# Configure Apache to use /htdocs as the document root
-RUN sed -i 's|/var/www/html|/htdocs|g' /etc/apache2/sites-available/000-default.conf
-
-# Configure Apache to serve phpMyAdmin from /phpmyadmin
-RUN echo "Alias /phpmyadmin /usr/share/phpmyadmin" > /etc/apache2/conf-available/phpmyadmin.conf \
-    && a2enconf phpmyadmin
-
-# Enable Apache mods and start Apache
+# Enable Apache mods
 RUN a2enmod php8.2
+
+# Set the ServerName directive globally to suppress the warning
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Expose port 80
 EXPOSE 80
 
-# Keep the container running by starting Apache in the foreground
-CMD ["apachectl", "-D", "FOREGROUND"]
+# Keep the container running by starting the startup script
+CMD ["/bin/bash", "-c", "/workspaces/${localWorkspaceFolderBasename}/startup.sh"]
