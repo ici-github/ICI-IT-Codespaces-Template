@@ -4,6 +4,7 @@ FROM ubuntu:20.04
 # Install dependencies and PHP 8.2
 RUN apt-get update && apt-get install -y \
     software-properties-common \
+    sudo \
     && add-apt-repository ppa:ondrej/php \
     && apt-get update && apt-get install -y \
     php8.2 \
@@ -29,15 +30,15 @@ RUN wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zi
 RUN echo 'Alias /phpmyadmin /usr/share/phpmyadmin' > /etc/apache2/conf-available/phpmyadmin.conf \
     && ln -s /etc/apache2/conf-available/phpmyadmin.conf /etc/apache2/conf-enabled/phpmyadmin.conf
 
-# Enable directory listing and set DocumentRoot to /workspace/<repository-name>/htdocs
-RUN echo '<Directory /workspace/${GITHUB_REPOSITORY##*/}/htdocs>' > /etc/apache2/conf-available/directory-listing.conf \
+# Enable directory listing and set DocumentRoot to /workspaces/<repository-name>/htdocs
+RUN echo '<Directory /workspaces/${GITHUB_REPOSITORY##*/}/htdocs>' > /etc/apache2/conf-available/directory-listing.conf \
     && echo 'Options Indexes FollowSymLinks' >> /etc/apache2/conf-available/directory-listing.conf \
     && echo 'AllowOverride None' >> /etc/apache2/conf-available/directory-listing.conf \
     && echo 'Require all granted' >> /etc/apache2/conf-available/directory-listing.conf \
     && echo '</Directory>' >> /etc/apache2/conf-available/directory-listing.conf \
     && ln -s /etc/apache2/conf-available/directory-listing.conf /etc/apache2/conf-enabled/directory-listing.conf \
-    && sed -i 's|DocumentRoot /var/www/html|DocumentRoot /workspace/${GITHUB_REPOSITORY##*/}/htdocs|' /etc/apache2/sites-available/000-default.conf \
-    && sed -i 's|<Directory /var/www/>|<Directory /workspace/${GITHUB_REPOSITORY##*/}/htdocs/>|' /etc/apache2/apache2.conf
+    && sed -i 's|DocumentRoot /var/www/html|DocumentRoot /workspaces/${GITHUB_REPOSITORY##*/}/htdocs|' /etc/apache2/sites-available/000-default.conf \
+    && sed -i 's|<Directory /var/www/>|<Directory /workspaces/${GITHUB_REPOSITORY##*/}/htdocs/>|' /etc/apache2/apache2.conf
 
 # Remove tzdata package
 RUN apt-get remove -y tzdata && apt-get autoremove -y
