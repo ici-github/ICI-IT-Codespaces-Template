@@ -26,35 +26,21 @@ RUN wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zi
     && mv /usr/share/phpMyAdmin-*-all-languages /usr/share/phpmyadmin \
     && rm /tmp/phpmyadmin.zip
 
-# Configure Apache for phpMyAdmin
-RUN echo 'Alias /phpmyadmin /usr/share/phpmyadmin' > /etc/apache2/conf-available/phpmyadmin.conf \
-    && ln -s /etc/apache2/conf-available/phpmyadmin.conf /etc/apache2/conf-enabled/phpmyadmin.conf
+# Create /htdocs directory and set permissions
+RUN mkdir -p /htdocs && chown -R www-data:www-data /htdocs
 
-# Enable directory listing and set DocumentRoot to /workspaces/<repository-name>/htdocs
-RUN echo '<Directory /workspaces/${GITHUB_REPOSITORY##*/}/htdocs>' > /etc/apache2/conf-available/directory-listing.conf \
-    && echo 'Options Indexes FollowSymLinks' >> /etc/apache2/conf-available/directory-listing.conf \
-    && echo 'AllowOverride None' >> /etc/apache2/conf-available/directory-listing.conf \
-    && echo 'Require all granted' >> /etc/apache2/conf-available/directory-listing.conf \
-    && echo '</Directory>' >> /etc/apache2/conf-available/directory-listing.conf \
-    && ln -s /etc/apache2/conf-available/directory-listing.conf /etc/apache2/conf-enabled/directory-listing.conf \
-    && sed -i 's|DocumentRoot /var/www/html|DocumentRoot /workspaces/${GITHUB_REPOSITORY##*/}/htdocs|' /etc/apache2/sites-available/000-default.conf \
-    && sed -i 's|<Directory /var/www/>|<Directory /workspaces/${GITHUB_REPOSITORY##*/}/htdocs/>|' /etc/apache2/apache2.conf
+# Configure Apache to use /htdocs as the document root
+RUN sed -i 's|/var/www/html|/htdocs|g' /etc/apache2/sites-available/000-default.conf
 
-# Remove tzdata package
-RUN apt-get remove -y tzdata && apt-get autoremove -y
+# Configure Apache to serve phpMyAdmin from /phpmyadmin
+RUN echo "Alias /phpmyadmin /usr/share/phpmyadmin" > /etc/apache2/conf-available/phpmyadmin.conf \
+    && a2enconf phpmyadmin
 
-# Restart Apache to apply changes
-RUN service apache2 restart
+# Enable Apache mods and start Apache
+RUN a2enmod php8.2
 
-# Set the default shell to bash
-SHELL ["/bin/bash", "-c"]
-
-# Expose port 80 for the web server
+# Expose port 80
 EXPOSE 80
 
-# Start MariaDB service and create a sample database and user
-RUN service mysql start \
-    && mysql -e "CREATE DATABASE mariadb;" \
-    && mysql -e "CREATE USER 'mariadb'@'localhost' IDENTIFIED BY 'mariadb';" \
-    && mysql -e "GRANT ALL PRIVILEGES ON mariadb.* TO 'mariadb'@'localhost';" \
-    && mysql -e "FLUSH PRIVILEGES;"
+# Keep the container running by starting Apache in the foreground
+CMD ["apachectl", "-D", "FOREGROUND"]
