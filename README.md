@@ -2,6 +2,11 @@
 
 This project sets up a development environment using GitHub Codespaces with MySQL, phpMyAdmin, and Apache for students in Iligan Computer Institute. Students are required to follow all the notes and guidelines here.
 
+## Students should use their ICI-email supplied email address to use the privileges in the Codespace.
+- Free Accounts: 120 hours
+- Verified Student/Teacher (applied to GitHub Student Developer Pack): 180 hours
+- resets every activation per month
+
 ### GitHub Codespaces and GitHub Student Developer Pack
 1. To use GitHUB Codespaces, make sure you already registered your ICI-email address to GitHub.
 2. Visit https://education.github.com/pack to activate, follow the instructions from GitHub.
@@ -53,6 +58,11 @@ echo "Connected successfully";
 2. **Open the duplicated repository in GitHub Codespaces**:
     - Click on the `Code` button and select `Open with Codespaces`.
     - Select `New codespace` to create a new Codespace.
+  
+## How to Run the Server
+
+1. **Start PHP/Apache Server**:
+    - The PHP/Apache server should start automatically when the Codespace is created.
 
 ## How to Run the Database
 
