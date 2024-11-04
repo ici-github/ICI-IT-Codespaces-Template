@@ -26,7 +26,7 @@
                 {
                     "label": "Export Database",
                     "type": "shell",
-                    "command": "mysqldump -u mariadb -p mariadb mariadb > /workspace/${GITHUB_REPOSITORY##*/}/mariadb_export.sql",
+                    "command": "mysqldump -u mariadb -p mariadb mariadb > /workspace/${GITHUB_REPOSITORY##*/}/database_export_backup.sql",
                     "problemMatcher": []
                 }
             ]
