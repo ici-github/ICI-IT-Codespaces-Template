@@ -1,0 +1,35 @@
+{
+    "name": "ICI IT Codespace PHP/MySQL/phpMyAdmin",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "."
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:1": {}
+    },
+    "postCreateCommand": "sudo service mysql start && sudo service apache2 start",
+    "postStartCommand": "./startup.sh",
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+        "ms-azuretools.vscode-docker",
+        "felixfbecker.php-debug",
+        "bmewburn.vscode-intelephense-client",
+        "ms-vsliveshare.vsliveshare"
+    ],
+    "forwardPorts": [80, 443],
+    "remoteUser": "vscode",
+    "customizations": {
+        "vscode": {
+            "tasks": [
+                {
+                    "label": "Export Database",
+                    "type": "shell",
+                    "command": "mysqldump -u student -p password sample_db > /workspace/sample_db_export.sql",
+                    "problemMatcher": []
+                }
+            ]
+        }
+    }
+}
