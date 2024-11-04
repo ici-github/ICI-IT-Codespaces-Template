@@ -1,1 +1,1 @@
-# ICI-IT-Codespaces-Template
+# ICI IT Codespaces Template
