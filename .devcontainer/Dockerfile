@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     php8.2-pdo-mysql \
     apache2 \
     libapache2-mod-php8.2 \
-    mysql-server \
+    mariadb-server \
+    mariadb-client \
     wget \
     unzip \
     && rm -rf /var/lib/apt/lists/*
@@ -50,7 +51,7 @@ SHELL ["/bin/bash", "-c"]
 # Expose port 80 for the web server
 EXPOSE 80
 
-# Start MySQL service and create a sample database and user
+# Start MariaDB service and create a sample database and user
 RUN service mysql start \
     && mysql -e "CREATE DATABASE mariadb;" \
     && mysql -e "CREATE USER 'mariadb'@'localhost' IDENTIFIED BY 'mariadb';" \

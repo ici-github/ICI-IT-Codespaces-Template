@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Start MySQL service
+# Start MariaDB service
 sudo service mysql start
 
 # Start Apache service

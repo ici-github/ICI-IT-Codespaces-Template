@@ -7,8 +7,8 @@
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:1": {}
     },
-    "postCreateCommand": "chmod +x /workspace/${GITHUB_REPOSITORY##*/}/startup.sh && sudo service mysql start && sudo service apache2 start",
-    "postStartCommand": "./startup.sh",
+    "postCreateCommand": "chmod +x /workspaces/${GITHUB_REPOSITORY##*/}/startup.sh && sudo /workspaces/${GITHUB_REPOSITORY##*/}/startup.sh",
+    "postStartCommand": "sudo /workspaces/${GITHUB_REPOSITORY##*/}/startup.sh",
     "settings": {
         "terminal.integrated.shell.linux": "/bin/bash"
     },
@@ -19,14 +19,13 @@
         "ms-vsliveshare.vsliveshare"
     ],
     "forwardPorts": [80, 443],
-    "remoteUser": "vscode",
     "customizations": {
         "vscode": {
             "tasks": [
                 {
                     "label": "Export Database",
                     "type": "shell",
-                    "command": "mysqldump -u mariadb -p mariadb mariadb > /workspace/${GITHUB_REPOSITORY##*/}/database_export_backup.sql",
+                    "command": "mysqldump -u mariadb -pmariadb mariadb > /workspaces/${GITHUB_REPOSITORY##*/}/mariadb_export.sql",
                     "problemMatcher": []
                 }
             ]
