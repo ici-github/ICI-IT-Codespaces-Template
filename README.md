@@ -13,13 +13,14 @@ This project sets up a development environment using GitHub Codespaces with MySQ
 
 - **MySQL**: A MySQL server is set up with a sample database and user.
 - **phpMyAdmin**: phpMyAdmin is installed and configured for database management.
-- **Apache**: Apache is set up to serve PHP files and enable directory listing.
+- **Apache**: Apache is set up to serve PHP files from the `htdocs` directory and enable directory listing.
 - **Live Share**: The Live Share extension from Microsoft is included for real-time collaboration.
 
 ## Usage
 
-- **Access phpMyAdmin**: Navigate to `http://localhost/phpmyadmin` in your browser.
-- **Run the sample PHP script**: The `index.php` file demonstrates a database connection.
+- **Upload Work**: Students should upload their work to the `htdocs` directory.
+- **Access phpMyAdmin**: Navigate to the `Ports` tab in this codespace.
+- **Run the sample PHP script**: The `htdocs/index.php` file demonstrates a database connection.
 
 ## Export Database
 
