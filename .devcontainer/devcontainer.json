@@ -20,18 +20,6 @@
         "GitHub.copilot"
     ],
     "forwardPorts": [80],
-    "customizations": {
-        "vscode": {
-            "tasks": [
-                {
-                    "label": "Export Database",
-                    "type": "shell",
-                    "command": "mysqldump -u mariadb -p mariadb mariadb > /workspaces/${localWorkspaceFolderBasename}/database_export.sql",
-                    "problemMatcher": []
-                }
-            ]
-        }
-    },
     "remoteEnv": {
         "REPO_NAME": "${localWorkspaceFolderBasename}"
     }
