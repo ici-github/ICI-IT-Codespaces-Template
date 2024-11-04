@@ -1,5 +1,5 @@
 {
-    "name": "ICI IT Codespace PHP/MySQL/phpMyAdmin",
+    "name": "ICI IT Codespace PHP/MySQL/phpMyAdmin by jerickalmeda",
     "build": {
         "dockerfile": "Dockerfile",
         "context": "."
@@ -26,7 +26,7 @@
                 {
                     "label": "Export Database",
                     "type": "shell",
-                    "command": "mysqldump -u student -p password sample_db > /workspace/sample_db_export.sql",
+                    "command": "mysqldump -u mariadb -pmariadb mariadb > /workspace/mariadb_export.sql",
                     "problemMatcher": []
                 }
             ]
