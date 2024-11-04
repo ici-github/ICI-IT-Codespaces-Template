@@ -54,7 +54,7 @@ echo "Connected successfully";
 ## Setup
 
 1. **Duplicate this GitHub repository**:
-    - Click on the `Fork` button at the top right of the repository page to create a copy of this repository in your GitHub account.
+    - Click on the `Use this template` button at the top right of the repository page then select `Create a new repository` to create a copy of this repository in your GitHub account.
 2. **Open the duplicated repository in GitHub Codespaces**:
     - Click on the `Code` button and select `Open with Codespaces`.
     - Select `New codespace` to create a new Codespace.
