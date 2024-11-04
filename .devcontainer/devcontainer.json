@@ -7,7 +7,7 @@
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:1": {}
     },
-    "postCreateCommand": "sudo service mysql start && sudo service apache2 start",
+    "postCreateCommand": "chmod +x /workspace/${GITHUB_REPOSITORY##*/}/startup.sh && sudo service mysql start && sudo service apache2 start",
     "postStartCommand": "./startup.sh",
     "settings": {
         "terminal.integrated.shell.linux": "/bin/bash"
@@ -26,7 +26,7 @@
                 {
                     "label": "Export Database",
                     "type": "shell",
-                    "command": "mysqldump -u mariadb -pmariadb mariadb > /workspace/mariadb_export.sql",
+                    "command": "mysqldump -u mariadb -p mariadb mariadb > /workspace/${GITHUB_REPOSITORY##*/}/mariadb_export.sql",
                     "problemMatcher": []
                 }
             ]
