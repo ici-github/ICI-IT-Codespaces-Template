@@ -16,6 +16,10 @@ This project sets up a development environment using GitHub Codespaces with MySQ
 6. (optional) To send your COR / Certificate of Registration as evidence for verification, take a photo of your COR then upload it to the submission form.
 7. Depends on the selected document for verification, expect an email coming from GitHub Education Team with the message, "Welcome to Github Global Campus", that indicates that your Student Developer Pack has been activated an able to use GitHub Codespaces at no charge.
 
+## Starting the server just in case in won't start automatically 
+1. Go to Terminal
+2. Type the following command: `sudo service apache2 start`
+
 ## Database Credentials
 
 The following credentials are used to connect to the MySQL database:
